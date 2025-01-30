@@ -27,10 +27,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    //? to-br: "to bottom-right"
-    //bg-gradient-to-br from-background to-muted
-    <div className="relative border border-white">
-      {/* Background image with blur effect */}
+    <div className="relative ">
       {/* Background image with blur effect */}
       <div style={backgroundStyle}></div>
       <div className="relative z-10">
