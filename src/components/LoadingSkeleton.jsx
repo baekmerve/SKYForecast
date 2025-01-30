@@ -6,13 +6,13 @@ const LoadingSkeleton = () => {
   return (
     <div className="space-y-6">
       <div className="grid gap-6">
-        {/* //note:skeleton for each sections */}
-        <Skeleton className="h-[300px] w-full rounded-lg" />
-        <Skeleton className="h-[300px] w-full rounded-lg" />
+        {/* skeleton for each sections */}
         <div className="grid gap-6 md:grid-cols-2">
           <Skeleton className="h-[300px] w-full rounded-lg" />
           <Skeleton className="h-[300px] w-full rounded-lg" />
         </div>
+        <Skeleton className="h-[300px] w-full rounded-lg" />
+        <Skeleton className="h-[300px] w-full rounded-lg" />
       </div>
     </div>
   );

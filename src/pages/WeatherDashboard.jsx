@@ -34,6 +34,7 @@ const WeatherDashboard = () => {
     return <LoadingSkeleton />;
   }
 
+  //! when the location is not enabled
   if (error) {
     return (
       <Alert variant="destructive">
@@ -50,6 +51,7 @@ const WeatherDashboard = () => {
     );
   }
 
+  //! when the coordinates is not present
   if (!coordinates) {
     return (
       <Alert variant="destructive">
@@ -66,7 +68,7 @@ const WeatherDashboard = () => {
   }
 
   const locationName = locationQuery.data?.[0];
-
+  //! if there is api call error
   if (weatherQuery.error || forecastQuery.error) {
     return (
       <Alert variant="destructive">
@@ -82,7 +84,7 @@ const WeatherDashboard = () => {
       </Alert>
     );
   }
-
+  //? ishow LoadingSkeleton while getting data
   if (!weatherQuery.data || !forecastQuery.data) {
     return <LoadingSkeleton />;
   }
@@ -104,22 +106,20 @@ const WeatherDashboard = () => {
           />
         </Button>
       </div>
-      <div className="grid gap-6">
-        <div className="flex flex-col lg:flex-row gap-4 ">
-          {/* current weather */}
+      <div className="grid gap-6 ">
+        <div className="grid gap-6 md:grid-cols-2 items-start">
+          {/* current weather & WeatherDetails */}
           <CurrentWeather
             data={weatherQuery.data}
             locationName={locationName}
           />
-          {/* hourly temp */}
-          <HourlyTemp data={forecastQuery.data} />
-        </div>
-        <div className="grid gap-6 md:grid-cols-2 items-start">
-          {/* deatils */}
           <WeatherDetails data={weatherQuery.data} />
-          {/* forecast*/}
-          <WeatherForecast data={forecastQuery.data} />
+          {/* hourly temp */}
         </div>
+        <HourlyTemp data={forecastQuery.data} />
+
+        {/* forecast*/}
+        <WeatherForecast data={forecastQuery.data} />
       </div>
     </div>
   );

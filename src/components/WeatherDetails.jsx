@@ -34,7 +34,7 @@ const WeatherDetails = ({data}) => {
     },
   ];
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden ">
       <CardHeader>
         <CardTitle>Weather Details</CardTitle>
       </CardHeader>
@@ -44,7 +44,7 @@ const WeatherDetails = ({data}) => {
             return (
               <div
                 key={detail.title}
-                className="flex items-center gap-3 rounded-lg border p-4
+                className="flex items-center gap-3 rounded-lg border  p-4
             "
               >
                 <detail.icon className={`h-5 w-5 ${detail.color}`} />

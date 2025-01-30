@@ -14,10 +14,8 @@ export const CurrentWeather = ({ data, locationName }) => {
 
   const formatTemp = (temp) => `${Math.round(temp)}°C`;
   return (
-    <Card className="overflow-hidden 0">
-      <CardContent
-        className="p-6 "
-      >
+    <Card className="overflow-hidden  ">
+      <CardContent className="p-6 ">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-4">
             <div className="space-y-2">
