@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { useDebounce } from "use-debounce";
+
 import {
   CommandDialog,
   CommandEmpty,
@@ -16,9 +18,11 @@ import { useNavigate } from "react-router-dom";
 const CitySearch = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [debouncedQuery] = useDebounce(query, 500); // Debounce for 500ms
+
   const navigate = useNavigate();
 
-  const { data, isLoading } = useLocationSearch(query);
+  const { data, isLoading } = useLocationSearch(debouncedQuery);
 
   const handleSelect = (cityData) => {
     const [lat, lon, name] = cityData.split("|");
@@ -41,7 +45,7 @@ const CitySearch = () => {
         <CommandInput
           placeholder="Search cities..."
           value={query}
-          onValueChange={setQuery}
+          onValueChange={setQuery} // update the query state directly
         />
         <CommandList>
           {query.length > 2 && !isLoading && (
