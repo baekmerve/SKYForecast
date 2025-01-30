@@ -14,7 +14,7 @@ export const CurrentWeather = ({ data, locationName }) => {
 
   const formatTemp = (temp) => `${Math.round(temp)}°C`;
   return (
-    <Card className="overflow-hidden  ">
+    <Card className="overflow-hidden min-h-[300px] ">
       <CardContent className="p-6 ">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-4">
@@ -46,19 +46,6 @@ export const CurrentWeather = ({ data, locationName }) => {
                   Feels like {formatTemp(feels_like)}
                 </p>
               </div>
-            </div>
-
-            {/*  min temp */}
-            <div className="grid grid-cols-2 gap-4 ">
-              <span className="flex items-center gap-1 text-blue-500">
-                <ArrowDown className="h-3 w-3" />
-                {formatTemp(temp_min)}
-              </span>
-              {/*  max temp */}
-              <span className="flex items-center gap-1 text-red-500 ">
-                <ArrowUp className="h-3 w-3" />
-                {formatTemp(temp_max)}
-              </span>
             </div>
 
             {/*  humidity */}

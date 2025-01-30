@@ -34,7 +34,7 @@ const WeatherDetails = ({data}) => {
     },
   ];
   return (
-    <Card className="overflow-hidden ">
+    <Card className="overflow-hidden min-h-[300px] ">
       <CardHeader>
         <CardTitle>Weather Details</CardTitle>
       </CardHeader>

@@ -55,11 +55,11 @@ const WeatherForecast = ({ data }) => {
                 {/* min - max temp */}
                 <div className="flex flex-col lg:flex-row justify-center gap-4">
                   <span className="flex items-center text-blue-500">
-                    <ArrowDown className="mr-1 h-4 w-4" />
+                    <ArrowDown className="mr-1 h-4 w-4" /> min {""}
                     {formatTemp(day.temp_min)}
                   </span>
                   <span className="flex items-center text-red-500">
-                    <ArrowUp className="mr-1 h-4 w-4" />
+                    <ArrowUp className="mr-1 h-4 w-4" /> max {""}
                     {formatTemp(day.temp_max)}
                   </span>
                 </div>
