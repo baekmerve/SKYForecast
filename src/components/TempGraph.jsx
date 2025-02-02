@@ -14,7 +14,7 @@ import {
 
 import { format } from "date-fns";
 
-const HourlyTemp = ({ data }) => {
+const TempGraph = ({ data }) => {
   const chartData = data.list.slice(0, 8).map((item) => ({
     //every 3 hours
     time: format(new Date(item.dt * 1000), "ha"), // ha: hour + am/pm
@@ -25,7 +25,7 @@ const HourlyTemp = ({ data }) => {
   return (
     <Card className="flex-1">
       <CardHeader>
-        <CardTitle>Today's Temperature </CardTitle>
+        <CardTitle>오늘의 기온</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-[200px] w-full">
@@ -65,7 +65,7 @@ const HourlyTemp = ({ data }) => {
 
                           <div className="flex flex-col">
                             <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Feels Like
+                              체감 온도
                             </span>
                             <span className="font-bold">
                               {payload[1].value}°
@@ -101,4 +101,4 @@ const HourlyTemp = ({ data }) => {
   );
 };
 
-export default HourlyTemp;
+export default TempGraph;

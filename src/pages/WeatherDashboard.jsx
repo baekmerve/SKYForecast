@@ -1,35 +1,52 @@
 /* eslint-disable no-unused-vars */
-import { CurrentWeather } from "@/components/CurrentWeather";
-import HourlyTemp from "@/components/HourlyTemp";
+import CitySearch from "@/components/CitySearch";
+import { TodaysWeather } from "@/components/TodaysWeather";
+import TempGraph from "@/components/TempGraph";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import WeatherDetails from "@/components/WeatherDetails";
-import WeatherForecast from "@/components/WeatherForecast";
-import { useGeolocation } from "@/hooks/useGeolocation";
+import FiveDayWeather from "@/components/FiveDayWeather";
 import {
+  useAirQualityQuery,
   useForecastQuery,
-  useReverseGecodeQuery,
   useWeatherQuery,
-} from "@/hooks/useWeather";
+} from "@/hooks/useWeatherDetails";
+import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 import { AlertTriangle, MapPin, RefreshCw } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 const WeatherDashboard = () => {
-  const { coordinates, error, getLocation, isLoading } = useGeolocation();
+  const [searchedCity, setSearchedCity] = useState(null);
 
-  const weatherQuery = useWeatherQuery(coordinates);
-  const forecastQuery = useForecastQuery(coordinates);
-  const locationQuery = useReverseGecodeQuery(coordinates);
+  const { coordinates, error, getCurrentLocation, isLoading } =
+    useCurrentLocation();
+
+  // If there's a searchedCity, use that; otherwise, use the coordinates from geolocation
+  const weatherQuery = useWeatherQuery(searchedCity || coordinates);
+  const forecastQuery = useForecastQuery(searchedCity || coordinates);
+  const airQualityQuery = useAirQualityQuery(searchedCity || coordinates);
+
+  const handleCitySelect = (cityCoordinates) => {
+    setSearchedCity(cityCoordinates); // Set the coordinates from city search
+  };
+
+  const handleUseMyLocation = () => {
+    setSearchedCity(null); // Clear selected city
+    getCurrentLocation();
+  };
 
   const handleRefresh = () => {
-    getLocation();
+    getCurrentLocation();
     if (coordinates) {
       weatherQuery.refetch();
       forecastQuery.refetch();
-      locationQuery.refetch();
+      airQualityQuery.refetch();
     }
   };
+
+  console.log(airQualityQuery.data)
+
   if (isLoading) {
     return <LoadingSkeleton />;
   }
@@ -42,7 +59,11 @@ const WeatherDashboard = () => {
         <AlertTitle>Location Error</AlertTitle>
         <AlertDescription className="flex flex-col gap-4">
           <p>{error}</p>
-          <Button onClick={getLocation} variant={"outline"} className="w-fit">
+          <Button
+            onClick={getCurrentLocation}
+            variant={"outline"}
+            className="w-fit"
+          >
             <MapPin className="mr-2 h-4 w-4" />
             Enable Location
           </Button>
@@ -58,7 +79,11 @@ const WeatherDashboard = () => {
         <AlertTitle>Location Required</AlertTitle>
         <AlertDescription className="flex flex-col gap-4">
           <p>Please enable location access to see your local weather</p>
-          <Button onClick={getLocation} variant={"outline"} className="w-fit">
+          <Button
+            onClick={getCurrentLocation}
+            variant={"outline"}
+            className="w-fit"
+          >
             <MapPin className="mr-2 h-4 w-4" />
             Enable Location
           </Button>
@@ -67,7 +92,6 @@ const WeatherDashboard = () => {
     );
   }
 
-  const locationName = locationQuery.data?.[0];
   //! if there is api call error
   if (weatherQuery.error || forecastQuery.error) {
     return (
@@ -84,42 +108,40 @@ const WeatherDashboard = () => {
       </Alert>
     );
   }
-  //? ishow LoadingSkeleton while getting data
+  //? Show loading skeleton while waiting for data
   if (!weatherQuery.data || !forecastQuery.data) {
     return <LoadingSkeleton />;
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold tracking-tight">My Location</h1>
+      {/* <div className="flex items-center justify-between"> */}
+      <div className="flex grid-cols-2 gap-10  justify-between">
+        {/* search */}
+        <CitySearch onSelectCity={handleCitySelect} />
         <Button
-          variant={"outlined"}
-          size={"icon"}
-          onClick={handleRefresh}
+          onClick={handleUseMyLocation}
+          variant={"outline"}
           disabled={weatherQuery.isFetching || forecastQuery.isFetching}
         >
-          <RefreshCw
-            className={`h-4 w-4 ${
-              weatherQuery.isFetching ? "animate-spin" : ""
-            }`}
-          />
+          <MapPin className="mr-2 h-4 w-4 0" />내 위치 사용
         </Button>
       </div>
-      <div className="grid gap-6 ">
-        <div className="grid gap-6 md:grid-cols-2 items-start">
+      <div className="grid  gap-6">
+        <div className="grid grid-cols md:grid-cols-[40%_1fr] gap-6">
           {/* current weather & WeatherDetails */}
-          <CurrentWeather
-            data={weatherQuery.data}
-            locationName={locationName}
-          />
-          <WeatherDetails data={weatherQuery.data} />
+          <TodaysWeather data={weatherQuery.data} />
+          <TempGraph data={forecastQuery.data} />
+
           {/* hourly temp */}
         </div>
-        <HourlyTemp data={forecastQuery.data} />
-
-        {/* forecast*/}
-        <WeatherForecast data={forecastQuery.data} />
+        <div className="grid grid-cols md:grid-cols-[40%_1fr] gap-4">
+          <FiveDayWeather data={forecastQuery.data} />
+          <WeatherDetails
+            weatherData={weatherQuery.data}
+            airQualityData={airQualityQuery.data}
+          />
+        </div>
       </div>
     </div>
   );

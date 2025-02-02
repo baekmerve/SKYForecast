@@ -11,8 +11,10 @@ const LoadingSkeleton = () => {
           <Skeleton className="h-[300px] w-full rounded-lg" />
           <Skeleton className="h-[300px] w-full rounded-lg" />
         </div>
-        <Skeleton className="h-[300px] w-full rounded-lg" />
-        <Skeleton className="h-[300px] w-full rounded-lg" />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Skeleton className="h-[500px] w-full rounded-lg" />
+          <Skeleton className="h-[500px] w-full rounded-lg" />
+        </div>
       </div>
     </div>
   );
