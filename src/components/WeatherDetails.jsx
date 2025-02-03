@@ -85,14 +85,14 @@ const WeatherDetails = ({ weatherData, airQualityData }) => {
       title: "체감 온도",
       value: `${Math.round(main.feels_like)}°C`,
       icon: Thermometer,
-      color: "text-red-500",
+      color: "text-red-400",
     },
     {
       title: "풍속",
 
       value: `${Math.round(wind.speed)} m/s`,
       icon: WindIcon,
-      color: "text-black",
+      color: "text-purple-300",
     },
     {
       title: "가시거리",
