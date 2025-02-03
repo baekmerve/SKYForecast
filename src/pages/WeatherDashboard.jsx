@@ -106,7 +106,7 @@ const WeatherDashboard = () => {
       </Alert>
     );
   }
-  //? Show loading skeleton while waiting for data
+  //? Show loading animation while waiting for data
   if (!weatherQuery.data || !forecastQuery.data) {
     return <LoadingAnimation />;
   }

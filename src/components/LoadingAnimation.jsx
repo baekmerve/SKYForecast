@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Skeleton } from "./ui/skeleton";
+
 
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-const LoadingSkeleton = () => {
+const LoadingAnimation = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <DotLottieReact
@@ -17,4 +17,4 @@ const LoadingSkeleton = () => {
   );
 };
 
-export default LoadingSkeleton;
+export default LoadingAnimation;
