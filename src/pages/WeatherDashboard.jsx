@@ -2,7 +2,7 @@
 import CitySearch from "@/components/CitySearch";
 import { TodaysWeather } from "@/components/TodaysWeather";
 import TempGraph from "@/components/TempGraph";
-import LoadingSkeleton from "@/components/LoadingSkeleton";
+import LoadingAnimation from "@/components/LoadingAnimation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import WeatherDetails from "@/components/WeatherDetails";
@@ -45,10 +45,8 @@ const WeatherDashboard = () => {
     }
   };
 
-  console.log(airQualityQuery.data)
-
   if (isLoading) {
-    return <LoadingSkeleton />;
+    return <LoadingAnimation />;
   }
 
   //! when the location is not enabled
@@ -110,7 +108,7 @@ const WeatherDashboard = () => {
   }
   //? Show loading skeleton while waiting for data
   if (!weatherQuery.data || !forecastQuery.data) {
-    return <LoadingSkeleton />;
+    return <LoadingAnimation />;
   }
 
   return (

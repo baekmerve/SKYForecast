@@ -111,7 +111,7 @@ const WeatherDetails = ({ weatherData, airQualityData }) => {
           {/* air quality data */}
           <div className="p-2 space-y-4 flex-col rounded-lg">
             <div className="flex justify-between items-center">
-              <p className=" text-lg font-semibold text-blue-700">
+              <p className=" text-lg font-semibold text-cyan-400">
                 대기질 지수
               </p>
               <p
@@ -139,7 +139,7 @@ const WeatherDetails = ({ weatherData, airQualityData }) => {
           </div>
           {/* sunrise & sunset */}
           <div className="p-2 space-y-4 flex-col">
-            <p className="text-pink-700 text-lg font-semibold">일출 및 일몰</p>
+            <p className="text-pink-700 text-lg font-semibold ">일출 및 일몰</p>
             <div className="grid grid-cols-2 gap-4">
               {sunTimes.map((sun, index) => {
                 return (
@@ -160,7 +160,7 @@ const WeatherDetails = ({ weatherData, airQualityData }) => {
         </div>
         {/* highlights */}
         <div className=" p-2 space-y-4 ">
-          <p className="text-green-700 text-lg font-semibold">날씨 상세</p>
+          <p className="text-green-400 text-lg font-semibold">날씨 상세</p>
 
           <div className="px-2 grid gap-4 grid-cols-2  lg:grid-cols-4 ">
             {highlights.map((detail) => {
